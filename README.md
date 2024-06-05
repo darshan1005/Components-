@@ -34,3 +34,7 @@ Use **npm intall** at root level also in testingapp folder.
 Check package.json for the required packages.
 
 Follow this file structure for the best results.
+
+# Branch 2: main-story-book
+create app using Type-script + React + (vite or webPack5)
+Run story book - [story book](https://storybook.js.org/docs/get-started/install)
