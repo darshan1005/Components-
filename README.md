@@ -1,4 +1,4 @@
-# Components: Mono-repo
+# Components: Mono-repo & Story Book
 Custom components using Typescript + React + MUI
 ```
 poc-monoRepo/
