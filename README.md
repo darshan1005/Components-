@@ -1,4 +1,4 @@
-# Components-
+# Components: Mono-repo
 Custom components using Typescript + React + MUI
 ```
 poc-monoRepo/
@@ -30,6 +30,7 @@ poc-monoRepo/
 ├── package.json
 └── package-lock.json
 ```
-
+Use **npm intall** at root level also in testingapp folder.
+Check package.json for the required packages.
 
 Follow this file structure for the best results.
