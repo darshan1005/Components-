@@ -1,3 +1,4 @@
+#### main-story-book
 # Components: Mono-repo & Story Book
 Custom components using Typescript + React + MUI
 ```
@@ -39,7 +40,8 @@ Follow this file structure for the best results.
 ### create app using Type-script + React + (vite or webPack5)
 ### Run story book - [story book](https://storybook.js.org/docs/get-started/install)
 
-<<<<<<< main-story-book
+#### main-story-book
+##### main
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -86,4 +88,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
->>>>>>> main
+###### main-story-book
+=======
+###### main
+###### main
