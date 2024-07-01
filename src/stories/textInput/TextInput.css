@@ -1,0 +1,25 @@
+.input{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: max-content;
+}
+
+.search{
+  position: absolute;
+  margin-left: 10px;
+}
+
+input::placeholder{
+  padding: 20px;
+}
+
+input{
+  width: 300px;
+}
+
+@media screen and (max-width: 756px){
+  input {
+    width: 200px;
+  }
+}
