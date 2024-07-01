@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { FaUser } from "react-icons/fa";
+import React, { useEffect, useRef, useState } from "react";
+import { FaBars, FaTimes, FaUser } from "react-icons/fa";
 import { Avatar } from "../Avatar/Avatar";
-import './Navbar.css'
+import './Navbar.css';
 
 export interface NavbarProps {
   navLinks: {
@@ -21,6 +21,22 @@ export const NavBar: React.FC<NavbarProps> = ({
 }) => {
   const [searchText, setSearchText] = useState("");
   const [showProfilePopup, setShowProfilePopup] = useState(false);
+  const [menu, showMenu] = useState(false);
+
+  const navBarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(()=>{
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (navBarRef.current && !navBarRef.current.contains(event.target as Node)){
+        showMenu(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [])
 
   const handleLogout = () => {
     setShowProfilePopup(false);
@@ -28,54 +44,70 @@ export const NavBar: React.FC<NavbarProps> = ({
   };
 
   const handleLogin = () => {
-    setShowProfilePopup(true);
     onLogin();
+    setShowProfilePopup(true);
   };
 
+  const toggleMenu = () => {
+    showMenu(!menu);
+  }
+
   return (
-    <nav>
+    <nav ref={navBarRef}>
       <div className="navbar-brand">
-        <img src="/logo.svg" alt="logo" />
+        <img src="" alt="" style={{ display: "none" }} />
+        <p className="logo">Logo</p>
+        <input
+          className="search-bar"
+          type="text"
+          placeholder="Search..."
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
+        <button className="menu-button" onClick={toggleMenu}>
+          {menu ? <FaTimes /> : <FaBars />}
+        </button>
       </div>
-      <div className="navbar-nav">
+
+      <ul className={`navbar-nav ${menu ? 'active' : ''}`}>
         {navLinks.map((link) => (
           <li key={link.url}>
-            <a href={link.url}>{link.label}</a>
+            <a style={{ textDecoration: "none", color: "black" }} href={link.url}>{link.label}</a>
           </li>
         ))}
-      </div>
-      <div className="navbar-search">
+      </ul>
+      <div className={`navbar-search ${menu ? 'active' : ''}`}>
         <input
+        className="search-bar-inner"
           type="text"
-          placeholder="search....."
+          placeholder="Search..."
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
       </div>
-      <div className="navbar-profile">
-        {loggedIn ? (
+      <div className={`navbar-profile ${menu ? 'active' : ''}`}>
+        {!loggedIn ? (
+          <button onClick={handleLogin}>
+            <FaUser /> Login
+          </button>
+        ) : (
           <div>
-            <button onClick={() => setShowProfilePopup(!showProfilePopup)}>
-              <FaUser /> Login
-            </button>
-            {showProfilePopup && (
+            {showProfilePopup ? (<button onClick={() => setShowProfilePopup(!showProfilePopup)}>
+              <FaUser /> Profile
+            </button>) : (
               <div className="profile-popup">
-                <div className="avatar">
-                  <Avatar
-                    src={"https://th.bing.com/th/id/OIP.Z306v3XdxhOaxBFGfHku7wHaHw?rs=1&pid=ImgDetMain"}
-                    alt={"Avatar"}
-                    size={30}
-                  />
-                </div>
+                <Avatar
+                  src="https://th.bing.com/th/id/OIP.Z306v3XdxhOaxBFGfHku7wHaHw?rs=1&pid=ImgDetMain"
+                  alt="Avatar"
+                  size={40}
+                />
                 <div className="profile-options">
                   <button onClick={handleLogout}>Logout</button>
                 </div>
               </div>
             )}
           </div>
-        ) : null 
-        }
-        {!loggedIn && <button onClick={handleLogin}>Login</button>}
+        )}
       </div>
     </nav>
   );
